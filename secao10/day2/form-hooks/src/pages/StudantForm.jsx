@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import FormContext from '../context/FormContext';
 
 function StudantForm() {
-  const { updateGlobalState } = useContext(FormContext)
+  const { updateGlobalState, formData } = useContext(FormContext)
   const [studentData, setStudentData] = useState({
     studantName: '',
     studantAge: 0,
@@ -39,7 +39,6 @@ function StudantForm() {
   };
 
   const onClick = () => {
-    console.log('onClick');
     const newFormData = {
       fullName: studentData.studantName,
       age: studentData.studantAge,
@@ -52,7 +51,7 @@ function StudantForm() {
       studantAge: 0,
       studantCity: '',
       studantModule: '',
-    }))
+    }));
   };
 
   return (
@@ -73,6 +72,18 @@ function StudantForm() {
       <input type="radio" name="ciência-computação" id="ciência-computação" onChange={handleModuleChange} checked={module === 'ciência-computação'} value="Ciência da Computação" />
       </label>
       <button type="button" onClick={onClick}>Enviar Informações</button>
+      <ul>
+        {formData.map((studant, i) => (
+          <li key={i}>
+            {
+              `Nome: ${studant.fullName};
+              Idade: ${studant.age};
+              Cidade: ${studant.city};
+              Módulo: ${studant.module}.`
+            }
+          </li>
+        ))}
+      </ul>
     </form>
   )
 }
